@@ -81,4 +81,13 @@ export default class Vec {
         }
     }
 
+    distVec(vec) {
+        return new Vec(
+            this[0] - vec[0],
+            this[1] - vec[1],
+            this[2] - vec[2],
+            this[3] - vec[3],
+        );
+    }
+
 }

@@ -1,23 +1,27 @@
-import Input from "../Input.js";
+import Input from "../input/Input.js";
 import Vec from "../Vec.js";
 import Entity from "./Entity.js";
 
 export default class Player extends Entity {
 
-    update(delta, level) {
-        super.update(delta, level);
+    // static = true;
 
-        this.acceleration.multiply(0);
-
+    onUpdate() {
         if(Input.checkKey('a')) {
-            this.acceleration.x = -10;
+            this.acceleration.x = -1.5;
         }
         if(Input.checkKey('d')) {
-            this.acceleration.x = 10;
+            this.acceleration.x = 1.5;
         }
-        if(Input.checkKey(' ')) {
-            this.acceleration.y = 100;
+        if(Input.checkKey(' ') && !this.airborn) {
+            this.acceleration.y = 20;
+            this.airborn = true;
         }
+    }
+
+    onCollision() {
+        this.acceleration.multiply(0);
+        this.airborn = false;
     }
 
     draw(renderer) {
@@ -26,8 +30,11 @@ export default class Player extends Entity {
         ctxt.fillRect(
             this.position.x,
             this.position.y,
-            100, 100
+            this.width,
+            this.height
         );
-    } 
+
+        super.draw(renderer);
+    }
 
 }

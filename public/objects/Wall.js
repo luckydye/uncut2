@@ -15,6 +15,17 @@ export default class Wall extends Entity {
         this.static = true;
     }
 
+    getBoundingBox() {
+        const w = this.points[1].x - this.points[0].x;
+        const h = this.points[2].y - this.points[1].y;
+        return {
+            left: this.position.x,
+            bottom: this.position.y + h,
+            right: this.position.x + w,
+            top: this.position.y + h,
+        }
+    }
+
     draw(renderer) {
         const transformPoint = (p) => {
             return [
@@ -32,6 +43,8 @@ export default class Wall extends Entity {
         ctxt.closePath();
         ctxt.fillStyle = "white";
         ctxt.fill();
+
+        super.draw(renderer);
     }    
 
 }

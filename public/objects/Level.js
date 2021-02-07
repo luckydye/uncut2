@@ -4,19 +4,19 @@ import Entity from "./Entity.js";
 
 export default class Level {
 
-    constructor() {
-        this.objects = [];
-
-        this.attributes = {
-            gravity: -9.81
-        }
-
-        this.camera = new Camera();
-        this.world = new Vec();
+    get camera() {
+        return this.activeCamera;
     }
 
-    getOrigin() {
-        return this.world;
+    constructor() {
+        this.attributes = {
+            gravity: 0.981
+        }
+
+        this.objects = [
+            new Camera()
+        ];
+        this.activeCamera = this.objects[0];
     }
 
     add(gameObject) {
@@ -29,17 +29,13 @@ export default class Level {
     }
 
     draw(renderer) {
-        renderer.context.translate(
-            this.world.x,
-            this.world.y
-        );
-
         for(let object of this.objects) {
             object.draw(renderer);
         }
     }
 
     update(delta) {
+        // update all
         const killlist = [];
         for(let object of this.objects) {
             if(!object.destoryed)
@@ -47,11 +43,11 @@ export default class Level {
             else
                 killlist.push(object);
         }
-
         for(let object of killlist) {
             this.objects.splice(this.objects.indexOf(object), 1);
         }
 
+        // check for collisions
         const colliders = this.objects.filter(obj => {
             return obj instanceof Entity;
         });
@@ -59,8 +55,8 @@ export default class Level {
             for(let obj2 of colliders) {
                 if(obj1 !== obj2) {
                     const int = this.checkIntersections(obj1, obj2);
-                    if(int) {
-                        obj1.onCollision(obj2);
+                    if(int && obj2.collider) {
+                        obj1.collides(obj2);
                     }
                 }
             }   
@@ -71,10 +67,8 @@ export default class Level {
         const r1 = obj1.getBoundingBox();
         const r2 = obj2.getBoundingBox();
         
-        return !(r2.left > r1.right || 
-                r2.right < r1.left || 
-                r2.top > r1.bottom ||
-                r2.bottom < r1.top);
+        return !(r2.left > r1.right || r2.right < r1.left || 
+                 r2.top > r1.bottom || r2.bottom < r1.top);
     }
 
 }

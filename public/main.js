@@ -6,17 +6,28 @@ import Vec from "./Vec.js";
 const game = new Game();
 game.run();
 
-game.level.add(new Player({
-    position: new Vec(50, 300)
-}));
-const wall = new Wall([
-    new Vec(0, 0),
-    new Vec(500, 0),
-    new Vec(500, 40),
-    new Vec(0, 40),
-]);
-wall.position.x = 100;
-wall.position.y = 50;
-game.level.add(wall);
+const player = new Player({
+    position: new Vec(200, 300)
+});
+game.level.add(player);
+
+function createWall(x = 0, y = 0) {
+    const wall = new Wall([
+        new Vec(0, 0),
+        new Vec(500, 0),
+        new Vec(500, 40),
+        new Vec(0, 40),
+    ]);
+    wall.position.x = x;
+    wall.position.y = y;
+    game.level.add(wall);
+    return wall;
+}
+
+createWall(100, 50);
+createWall(0, 400);
+createWall(200, 900);
+
+game.level.camera.setTarget(player);
 
 window.game = game;

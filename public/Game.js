@@ -19,7 +19,7 @@ export default class Game {
     }
 
     draw() {
-        this.renderer.draw();
+        this.renderer.draw(this.level.camera);
         this.level.draw(this.renderer);
     }
     

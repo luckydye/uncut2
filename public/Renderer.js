@@ -17,7 +17,13 @@ export default class Renderer {
     }
 
     draw() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        const ctxt = this.context;
+        ctxt.restore();
+        ctxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        ctxt.save();
+
+        ctxt.scale(1, -1);
+        ctxt.translate(0, -ctxt.canvas.height);
     }
 
 }

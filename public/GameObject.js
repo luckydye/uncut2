@@ -12,11 +12,11 @@ export default class GameObject {
 
     }
 
-    update() {
+    update(ms, level) {
 
     }
 
-    draw() {
+    draw(renderer) {
 
     }
 

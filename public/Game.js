@@ -3,44 +3,28 @@ import Renderer from "./Renderer.js";
 
 export default class Game {
 
+    get objects() {
+        return this.level.objects;
+    }
+
     constructor() {
         this.renderer = new Renderer();
-        this.objects = [];
+        this.level = new Level();
 
         this.lastTick = null;
         this.accumulator = 0;
 
         this.tickrate = 1000 / 60;
-
-        this.level = new Level();
-    }
-
-    spawn(gameobject) {
-        gameobject.onCreate();
-        this.objects.push(gameobject);
+        this.timescale = 0.1;
     }
 
     draw() {
         this.renderer.draw();
         this.level.draw(this.renderer);
-    
-        for(let object of this.objects) {
-            object.draw(this.renderer);
-        }
     }
     
     update(delta) {
-        const killlist = [];
-        for(let object of this.objects) {
-            if(!object.destoryed)
-                object.update(delta);
-            else
-                killlist.push(object);
-        }
-
-        for(let object of killlist) {
-            this.objects.splice(this.objects.indexOf(object), 1);
-        }
+        this.level.update(delta);
     }
 
     loop(currentTick) {
@@ -51,7 +35,7 @@ export default class Game {
             while(this.accumulator >= this.tickrate) {
                 this.accumulator -= this.tickrate;
     
-                this.update(this.tickrate);
+                this.update(this.tickrate * this.timescale);
             }
     
             this.draw();

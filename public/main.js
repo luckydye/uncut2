@@ -24,9 +24,15 @@ function createWall(x = 0, y = 0) {
     return wall;
 }
 
-createWall(100, 50);
-// createWall(0, 400);
-// createWall(200, 900);
+createWall(0, 100);
+createWall(500, 250);
+createWall(1000, 0);
+
+createWall(-500, -100);
+createWall(0, -100);
+createWall(500, -100);
+createWall(1000, -100);
+createWall(1500, -100);
 
 game.level.camera.setTarget(player);
 

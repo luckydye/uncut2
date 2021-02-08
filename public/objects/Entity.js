@@ -34,19 +34,7 @@ export default class Entity extends GameObject {
         }
     }
 
-    collides(collider) {
-        this.onCollision(collider);
-
-        if(this.static) return;
-
-        this.velocity.y = 0;
-        const bounds = collider.getBoundingBox();
-        this.position.y = bounds.bottom;
-    }
-
     update(delta, level) {
-        this.onUpdate();
-
         const colliders = level.objects.filter(obj => {
             return obj.collider && obj !== this;
         });
@@ -54,14 +42,7 @@ export default class Entity extends GameObject {
         const collidingObjects = new Set();
 
         // update X
-        // air friction
-        this.velocity.x *= 0.9;
-        
-        this.velocity.x += this.acceleration.x;
         this.position.x += this.velocity.x;
-        
-        // accel friction
-        this.acceleration.x *= 0.75;
         
         // collide X
         if(!this.static) {
@@ -72,32 +53,34 @@ export default class Entity extends GameObject {
 
                 if(r1.top > r2.bottom && r1.bottom < r2.top) {
                     if(r1.left < r2.left && r1.right > r2.left) {
+                        // right side colliding
                         const diff = r1.right - r2.left;
                         this.position.x -= diff;
+                        this.velocity.x = 0;
                         collidingObjects.add(obj2);
-                    }
+                    } 
                     if(r1.right > r2.right && r2.right > r1.left) {
+                        // left side colliding
                         const diff = r1.left - r2.right;
                         this.position.x -= diff;
+                        this.velocity.x = 0;
                         collidingObjects.add(obj2);
                     }
                 }
             }
         }
 
-        // update Y
+        //x
         // air friction
-        this.velocity.y *= 0.9;
-        if(!this.static) {
-            this.acceleration.y -= level.attributes.gravity;
-        }
-        
-        this.velocity.y += this.acceleration.y;
-        this.position.y += this.velocity.y;
+        this.velocity.x *= 0.9;
+        this.velocity.x += this.acceleration.x;
         
         // accel friction
-        this.acceleration.y *= 0.75;
-        
+        this.acceleration.x *= 0.75;
+
+        // update Y
+        this.position.y += this.velocity.y;
+
         // collide Y
         if(!this.static) {
             const r1 = this.getBoundingBox();
@@ -105,20 +88,39 @@ export default class Entity extends GameObject {
             for(let obj2 of colliders) {
                 const r2 = obj2.getBoundingBox();
 
-                if(r1.right > r2.left && r1.left < r2.right) {
+                if (r1.right > r2.left && r1.left < r2.right) {
                     if(r1.top > r2.top && r1.bottom < r2.top) {
+                        // bottom side colliding
                         const diff = r1.bottom - r2.top;
                         this.position.y -= diff;
+                        this.velocity.y = 0;
                         collidingObjects.add(obj2);
-                    }
+                        // airborn
+                        this.airborn = false;
+                    } 
                     if(r1.bottom < r2.bottom && r1.top > r2.bottom) {
+                        // top side colliding
                         const diff = r1.top - r2.bottom;
                         this.position.y -= diff;
+                        this.velocity.y = 0;
                         collidingObjects.add(obj2);
                     }
                 }
             }
         }
+
+        // y
+        // air friction
+        this.velocity.y *= 0.9;
+        if(!this.static) {
+            this.acceleration.y -= level.attributes.gravity;
+        }
+        this.velocity.y += this.acceleration.y;
+        
+        // accel friction
+        this.acceleration.y *= 0.75;
+
+        this.onUpdate();
 
         for(let obj of collidingObjects) {
             this.onCollision(obj);

@@ -14,14 +14,13 @@ export default class Player extends Entity {
             this.acceleration.x = 1.5;
         }
         if(Input.checkKey(' ') && !this.airborn) {
-            this.acceleration.y = 20;
+            this.acceleration.y =+ 15;
             this.airborn = true;
         }
     }
 
     onCollision() {
-        this.acceleration.multiply(0);
-        this.airborn = false;
+        
     }
 
     draw(renderer) {

@@ -25,7 +25,7 @@ export default class Player extends Entity {
 
     draw(renderer) {
         const ctxt = renderer.context;
-        ctxt.fillStyle = "white";
+        ctxt.fillStyle = "hsl(0deg, 0%, 75%)";
         ctxt.fillRect(
             this.position.x,
             this.position.y,
@@ -33,7 +33,7 @@ export default class Player extends Entity {
             this.height
         );
 
-        super.draw(renderer);
+        // super.draw(renderer);
     }
 
 }

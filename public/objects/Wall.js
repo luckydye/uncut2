@@ -41,10 +41,10 @@ export default class Wall extends Entity {
             ctxt.lineTo(...transformPoint(point));
         }
         ctxt.closePath();
-        ctxt.fillStyle = "white";
+        ctxt.fillStyle = "hsl(0deg, 0%, 15%)";
         ctxt.fill();
 
-        super.draw(renderer);
+        // super.draw(renderer);
     }    
 
 }

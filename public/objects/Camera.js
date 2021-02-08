@@ -11,7 +11,7 @@ export default class Camera extends Entity {
         this.static = true;
 
         this.target = null;
-        this.offset = new Vec(-100, -100);
+        this.offset = new Vec(-100, -150);
 
         this.collider = false;
     }
@@ -29,4 +29,8 @@ export default class Camera extends Entity {
         }
     }
     
+    draw() {
+
+    }
+
 }

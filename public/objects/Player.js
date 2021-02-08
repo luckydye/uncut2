@@ -14,7 +14,7 @@ export default class Player extends Entity {
             this.acceleration.x = 1.5;
         }
         if(Input.checkKey(' ') && !this.airborn) {
-            this.acceleration.y =+ 15;
+            this.acceleration.y =+ 13;
             this.airborn = true;
         }
     }

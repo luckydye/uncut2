@@ -72,11 +72,11 @@ export default class Entity extends GameObject {
 
         //x
         // air friction
-        this.velocity.x *= 0.9;
+        this.velocity.x *= 0.75;
         this.velocity.x += this.acceleration.x;
         
         // accel friction
-        this.acceleration.x *= 0.75;
+        this.acceleration.x *= 0.65;
 
         // update Y
         this.position.y += this.velocity.y;
@@ -118,7 +118,7 @@ export default class Entity extends GameObject {
         this.velocity.y += this.acceleration.y;
         
         // accel friction
-        this.acceleration.y *= 0.75;
+        this.acceleration.y *= 0.65;
 
         this.onUpdate();
 

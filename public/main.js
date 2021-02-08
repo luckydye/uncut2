@@ -1,4 +1,5 @@
 import Game from "./Game.js";
+import Item from "./objects/Item.js";
 import Player from "./objects/Player.js";
 import Wall from "./objects/Wall.js";
 import Vec from "./Vec.js";
@@ -10,6 +11,10 @@ const player = new Player({
     position: new Vec(300, 200)
 });
 game.level.add(player);
+
+game.level.add(new Item({
+    position: new Vec(400, 100)
+}));
 
 function createWall(x = 0, y = 0) {
     const wall = new Wall([

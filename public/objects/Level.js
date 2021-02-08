@@ -13,6 +13,8 @@ export default class Level {
             gravity: 0.981
         }
 
+        this.tick = 0;
+
         this.objects = [
             new Camera()
         ];
@@ -35,6 +37,7 @@ export default class Level {
     }
 
     update(delta) {
+        this.tick += delta;
         // update all
         const killlist = [];
         for(let object of this.objects) {

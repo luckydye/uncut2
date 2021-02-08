@@ -1,6 +1,7 @@
 import Input from "../input/Input.js";
 import Vec from "../Vec.js";
 import Entity from "./Entity.js";
+import Item from "./Item.js";
 
 export default class Player extends Entity {
 
@@ -19,8 +20,11 @@ export default class Player extends Entity {
         }
     }
 
-    onCollision() {
-        
+    onCollision(obj, level) {
+        if(obj instanceof Item) {
+            level.remove(obj);
+            console.log('Item collected');
+        }
     }
 
     draw(renderer) {

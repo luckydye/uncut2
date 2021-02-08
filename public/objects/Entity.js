@@ -34,7 +34,7 @@ export default class Entity extends GameObject {
         }
     }
 
-    update(delta, level) {
+    update(delta, level, tick) {
         const colliders = level.objects.filter(obj => {
             return obj.collider && obj !== this;
         });
@@ -123,8 +123,11 @@ export default class Entity extends GameObject {
         this.onUpdate();
 
         for(let obj of collidingObjects) {
-            this.onCollision(obj);
+            this.onCollision(obj, level);
         }
+
+        const spriteLen = 8;
+        const spriteIndex = Math.floor(level.tick / 12) % spriteLen;
     }
 
     draw(renderer) {

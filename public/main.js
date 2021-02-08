@@ -7,7 +7,7 @@ const game = new Game();
 game.run();
 
 const player = new Player({
-    position: new Vec(200, 300)
+    position: new Vec(300, 200)
 });
 game.level.add(player);
 
@@ -25,8 +25,8 @@ function createWall(x = 0, y = 0) {
 }
 
 createWall(100, 50);
-createWall(0, 400);
-createWall(200, 900);
+// createWall(0, 400);
+// createWall(200, 900);
 
 game.level.camera.setTarget(player);
 

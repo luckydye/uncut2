@@ -6,8 +6,8 @@ export default class Camera extends Entity {
     constructor(optns) {
         super(optns);
 
-        this.width = 100;
-        this.height = 100;
+        this.width = 640;
+        this.height = 380;
         this.static = true;
 
         this.target = null;

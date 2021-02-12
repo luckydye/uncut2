@@ -61,7 +61,7 @@ export default class Entity extends GameObject {
 
     update(delta, level, tick) {
         const colliders = level.objects.filter(obj => {
-            return obj !== this;
+            return obj !== this && obj instanceof Entity;
         });
         this.colliding.top = 0;
         this.colliding.bottom = 0;

@@ -1,48 +1,18 @@
-import { Action } from "../input/Actions.js";
 import Entity from "./Entity.js";
 import Item from "./Item.js";
 
-export default class Player extends Entity {
+export default class NetworkPlayer extends Entity {
 
     // static = true;
     mass = 1;
     textureImage = "../assets/textures/cat_ear.png";
     force = [0, 0];
+    username = "unknown";
 
-    constructor() {
-        super(...arguments);
+    constructor(username) {
+        super();
 
-        Action.register({
-            name: 'forward',
-            shortcut: 'd',
-            hold: true,
-            onAction: (args, event, action) => {
-                if(action.state) {
-                    this.force[0] += 1;
-                } else {
-                    this.force[0] -= 1;
-                }
-            }
-        });
-        Action.register({
-            name: 'backward',
-            shortcut: 'a',
-            hold: true,
-            onAction: (args, event, action) => {
-                if(action.state) {
-                    this.force[0] -= 1;
-                } else {
-                    this.force[0] += 1;
-                }
-            }
-        });
-        Action.register({
-            name: 'jump',
-            shortcut: 'space',
-            onAction: (args, event, action) => {
-                this.jump();
-            }
-        });
+        this.username = username;
     }
 
     onUpdate() {

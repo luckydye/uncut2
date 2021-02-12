@@ -29,6 +29,13 @@ export default class Entity extends GameObject {
         this.height = 80;
     }
 
+    get direction() {
+        return new Vec(
+            Math.sign(this.acceleration.x),
+            Math.sign(this.acceleration.y),
+        );
+    }
+
     getBounds() {
         const w = this.width;
         const h = this.height;
@@ -67,7 +74,7 @@ export default class Entity extends GameObject {
                         // right side colliding
                         if(obj2.collider) {
                             const diff = r1.right - r2.left;
-                            this.position.x -= diff + 1;
+                            this.position.x -= diff;
                             this.velocity.x *= 0;
                         }
                         this.colliding.right = 1;
@@ -77,7 +84,7 @@ export default class Entity extends GameObject {
                         // left side colliding
                         if(obj2.collider) {
                             const diff = r1.left - r2.right;
-                            this.position.x -= diff - 1;
+                            this.position.x -= diff;
                             this.velocity.x *= 0;
                         }
                         this.colliding.left = 1;
@@ -88,9 +95,8 @@ export default class Entity extends GameObject {
         }
 
         //x
-        // air friction
-        this.velocity.x *= 0.75;
         this.velocity.x += this.acceleration.x;
+        this.velocity.x *= 0.8;
         
         // accel friction
         this.acceleration.x *= 0.65;
@@ -132,11 +138,11 @@ export default class Entity extends GameObject {
 
         // y
         // air friction
-        this.velocity.y *= 0.9;
         if(!this.static) {
-            this.acceleration.y -= level.attributes.gravity;
+            this.velocity.y += this.acceleration.y - level.attributes.gravity;
+        } else {
+            this.velocity.y += this.acceleration.y;
         }
-        this.velocity.y += this.acceleration.y;
         
         // accel friction
         this.acceleration.y *= 0.65;

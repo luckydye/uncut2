@@ -53,6 +53,12 @@ export default class Player extends Entity {
         } else if(this.force[0] < 0) {
             this.backward();
         }
+
+        if((this.colliding.left || this.colliding.right) && 
+            !this.colliding.bottom) {
+                
+            this.velocity.multiply(0.5);
+        }
     }
 
     forward() {
@@ -65,7 +71,10 @@ export default class Player extends Entity {
 
     jump() {
         if(this.colliding.bottom) {
-            this.acceleration.y =+ 18;
+            this.acceleration.y = 8;
+        } else if((this.colliding.left || this.colliding.right) && !this.colliding.bottom) {
+            this.acceleration.y = 10;
+            this.acceleration.x = -25 * this.direction.x;
         }
     }
 

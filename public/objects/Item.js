@@ -16,6 +16,10 @@ export default class Item extends Entity {
         
     }
 
+    onCollect(player) {
+        player.height = 90;
+    }
+
     draw(renderer) {
         const ctxt = renderer.context;
         ctxt.fillStyle = "hsl(0deg, 0%, 65%)";

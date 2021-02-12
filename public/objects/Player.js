@@ -72,6 +72,7 @@ export default class Player extends Entity {
     onCollision(obj, level) {
         if(obj instanceof Item) {
             level.remove(obj);
+            obj.onCollect(this);
             console.log('Item collected');
         }
     }

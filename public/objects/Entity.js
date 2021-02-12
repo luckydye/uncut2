@@ -30,6 +30,16 @@ export default class Entity extends GameObject {
         this.height = 80;
     }
 
+    onCreate() {
+        if(this.textureImage) {
+            const iamge = new Image();
+            iamge.onload = () => {
+                this.texture = iamge;
+            }
+            iamge.src = this.textureImage;
+        }
+    }
+
     get direction() {
         return new Vec(
             Math.sign(this.acceleration.x),

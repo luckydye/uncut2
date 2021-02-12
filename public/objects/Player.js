@@ -8,6 +8,7 @@ export default class Player extends Entity {
 
     // static = true;
     mass = 1;
+    textureImage = "../assets/textures/cat_ear.png";
 
     constructor() {
         super(...arguments);
@@ -96,7 +97,17 @@ export default class Player extends Entity {
             "white"
         );
 
-        super.draw(renderer);
+        if(this.cat) {
+            renderer.drawSprite(
+                this.position.x,
+                this.position.y + 25,
+                this.width,
+                this.width,
+                this.texture
+            );
+        }
+
+        // super.draw(renderer);
     }
 
 }

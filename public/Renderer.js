@@ -38,8 +38,12 @@ export default class Renderer {
 
     drawSprite(x, y, w, h, color = 0xffffff) {
         const ctxt = this.context;
-        ctxt.fillStyle = color;
-        ctxt.fillRect(x, y, w, h);
+        if(typeof color == "string") {
+            ctxt.fillStyle = color;
+            ctxt.fillRect(x, y, w, h);
+        } else {
+            ctxt.drawImage(color, 0, 0, color.width, color.height, x, y, w, h);
+        }
     }
 
     drawBox(x, y, w, h, color = 0xffffff) {

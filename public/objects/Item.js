@@ -3,10 +3,11 @@ import Entity from "./Entity.js";
 
 export default class Item extends Entity {
 
-    width = 30;
-    height = 30;
+    width = 40;
+    height = 40;
     static = false;
     collider = false;
+    textureImage = "../assets/textures/item_1.png";
 
     onUpdate() {
         
@@ -21,16 +22,20 @@ export default class Item extends Entity {
         player.width += 40;
         player.position.x -= 20;
         player.mass = 2;
+        player.cat = true;
     }
 
     draw(renderer) {
-        const ctxt = renderer.context;
-        ctxt.fillStyle = "hsl(0deg, 0%, 65%)";
-        ctxt.fillRect(
+        let color = "hsl(0deg, 0%, 65%)";
+        if(this.texture) {
+            color = this.texture;
+        }
+        renderer.drawSprite(
             this.position.x,
             this.position.y,
             this.width,
-            this.height
+            this.height,
+            color
         );
 
         // super.draw(renderer);

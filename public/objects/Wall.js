@@ -20,9 +20,9 @@ export default class Wall extends Entity {
         const h = this.points[2].y - this.points[1].y;
         return {
             left: this.position.x,
-            bottom: this.position.y,
             right: this.position.x + w,
-            top: this.position.y + h,
+            bottom: this.position.y - h,
+            top: this.position.y,
         }
     }
 
@@ -30,21 +30,15 @@ export default class Wall extends Entity {
         const transformPoint = (p) => {
             return [
                 p.x + this.position.x, 
-                p.y + this.position.y
+                -p.y + this.position.y,
+                0
             ]
         }
 
-        const ctxt = renderer.context;
-        ctxt.beginPath();
-        ctxt.moveTo(...transformPoint(this.points[0]));
-        for(let point of this.points) {
-            ctxt.lineTo(...transformPoint(point));
-        }
-        ctxt.closePath();
-        ctxt.fillStyle = "hsl(0deg, 0%, 15%)";
-        ctxt.fill();
-
-        // super.draw(renderer);
+        const points = this.points.map(p => transformPoint(p));
+        renderer.drawLine(points, "white");
+        
+        super.draw(renderer);
     }    
 
 }

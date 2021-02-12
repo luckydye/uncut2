@@ -19,8 +19,9 @@ export default class Game {
     }
 
     draw() {
-        this.renderer.draw(this.level.camera);
+        this.renderer.clear(this.level.camera);
         this.level.draw(this.renderer);
+        this.renderer.draw(this.level.camera);
     }
     
     update(delta) {

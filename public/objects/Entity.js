@@ -131,15 +131,13 @@ export default class Entity extends GameObject {
     }
 
     draw(renderer) {
-        const ctxt = renderer.context;
         const bounds = this.getBoundingBox();
-
-        ctxt.strokeStyle = "red";
-        ctxt.strokeRect(
+        renderer.drawBox(
             bounds.left,
             bounds.bottom,
             bounds.right - bounds.left,
-            bounds.top - bounds.bottom
+            bounds.top - bounds.bottom,
+            "red"
         );
     }
 

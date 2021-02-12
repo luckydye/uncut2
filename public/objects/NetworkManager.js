@@ -50,9 +50,9 @@ export default class NetworkManager extends GameObject {
             player.position.y = ent.position[1];
             player.position.z = ent.position[2];
             
-            player.rotation.x = ent.rotation[0];
-            player.rotation.y = ent.rotation[1];
-            player.rotation.z = ent.rotation[2];
+            player.velocity.x = ent.velocity[0];
+            player.velocity.y = ent.velocity[1];
+            player.velocity.z = ent.velocity[2];
         }
     }
 
@@ -71,11 +71,11 @@ export default class NetworkManager extends GameObject {
         this.hostClient.on('player.update', ({ data, connection }) => {
             const player = this.players.get(connection.peer);
             // TODO:
-            console.log(player);
+            player.force[0] = data.input[2];
         });
     }
 
-    onUpdate(ms) {
+    update(ms) {
         // client update to host
         // TODO: get lokal player from level
         const player = this.player;
@@ -101,26 +101,20 @@ export default class NetworkManager extends GameObject {
         const enteties = [];
 
         for(let [id, player] of this.players) {
-            const model = player.getModel();
-
-            if(model) {
+            if(player) {
                 enteties.push({
                     id: id,
                     position: [
-                        model.position.x,
-                        model.position.y,
-                        model.position.z,
+                        player.position.x,
+                        player.position.y,
+                        player.position.z,
                     ],
                     velocity: [
-                        model.velocity[0],
-                        model.velocity[1],
-                        model.velocity[2],
+                        player.velocity[0],
+                        player.velocity[1],
+                        player.velocity[2],
                     ],
-                    rotation: [
-                        model.rotation.x,
-                        model.rotation.y,
-                        model.rotation.z,
-                    ],
+                    rotation: [0, 0, 0],
                 })
             }
         }

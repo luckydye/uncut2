@@ -8,6 +8,7 @@ export default class NetworkPlayer extends Entity {
     textureImage = "../assets/textures/cat_ear.png";
     force = [0, 0];
     username = "unknown";
+    collider = false;
 
     constructor(username) {
         super();

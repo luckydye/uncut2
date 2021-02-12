@@ -1,3 +1,4 @@
+import { Action } from "../input/Actions.js";
 import Input from "../input/Input.js";
 import Vec from "../Vec.js";
 import Entity from "./Entity.js";
@@ -10,20 +11,61 @@ export default class Player extends Entity {
     constructor() {
         super(...arguments);
         window.player = this;
+
+        this.force = [0, 0];
+
+        Action.register({
+            name: 'forward',
+            shortcut: 'd',
+            hold: true,
+            onAction: (args, event, action) => {
+                if(action.state) {
+                    this.force[0] += 1;
+                } else {
+                    this.force[0] -= 1;
+                }
+            }
+        });
+        Action.register({
+            name: 'backward',
+            shortcut: 'a',
+            hold: true,
+            onAction: (args, event, action) => {
+                if(action.state) {
+                    this.force[0] -= 1;
+                } else {
+                    this.force[0] += 1;
+                }
+            }
+        });
+        Action.register({
+            name: 'jump',
+            shortcut: 'space',
+            onAction: (args, event, action) => {
+                this.jump();
+            }
+        });
     }
 
     onUpdate() {
-        if(Input.checkKey('a')) {
-            this.acceleration.x = -1.5;
+        if(this.force[0] > 0) {
+            this.forward();
+        } else if(this.force[0] < 0) {
+            this.backward();
         }
-        if(Input.checkKey('d')) {
-            this.acceleration.x = 1.5;
-        }
-        if(Input.checkKey(' ') && this.colliding.bottom && !this.jumped) {
+    }
+
+    forward() {
+        this.acceleration.x = 1.5;
+    }
+
+    backward() {
+        this.acceleration.x = -1.5;
+    }
+
+    jump() {
+        if(this.colliding.bottom) {
             this.acceleration.y =+ 18;
-            this.jumped = true;
-        } else if(!Input.checkKey(' ')) {
-            this.jumped = false;
         }
     }
 

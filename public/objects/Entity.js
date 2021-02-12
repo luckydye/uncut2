@@ -68,7 +68,7 @@ export default class Entity extends GameObject {
                         if(obj2.collider) {
                             const diff = r1.right - r2.left;
                             this.position.x -= diff + 1;
-                            this.velocity.x = 0;
+                            this.velocity.x *= 0;
                         }
                         this.colliding.right = 1;
                         collidingObjects.add(obj2);
@@ -78,7 +78,7 @@ export default class Entity extends GameObject {
                         if(obj2.collider) {
                             const diff = r1.left - r2.right;
                             this.position.x -= diff - 1;
-                            this.velocity.x = 0;
+                            this.velocity.x *= 0;
                         }
                         this.colliding.left = 1;
                         collidingObjects.add(obj2);
@@ -111,7 +111,7 @@ export default class Entity extends GameObject {
                         if(obj2.collider) {
                             const diff = r1.bottom - r2.top;
                             this.position.y -= diff;
-                            this.velocity.y = 0;
+                            this.velocity.y *= 0;
                         }
                         this.colliding.bottom = 1;
                         collidingObjects.add(obj2);
@@ -121,7 +121,7 @@ export default class Entity extends GameObject {
                         if(obj2.collider) {
                             const diff = r1.top - r2.bottom;
                             this.position.y -= diff;
-                            this.velocity.y = 0;
+                            this.velocity.y *= 0;
                         }
                         this.colliding.top = 1;
                         collidingObjects.add(obj2);

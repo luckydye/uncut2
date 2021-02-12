@@ -10,11 +10,10 @@ game.run();
 const player = new Player({
     position: new Vec(300, 200)
 });
-game.level.add(player);
-
 game.level.add(new Item({
-    position: new Vec(400, 100)
+    position: new Vec(400, 600)
 }));
+game.level.add(player);
 
 function createWall(x = 0, y = 0) {
     const wall = new Wall([

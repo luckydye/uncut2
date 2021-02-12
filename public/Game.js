@@ -7,9 +7,9 @@ export default class Game {
         return this.level.objects;
     }
 
-    constructor() {
+    constructor(level) {
         this.renderer = new Renderer();
-        this.level = new Level();
+        this.level = level || new Level();
 
         this.lastTick = null;
         this.accumulator = 0;

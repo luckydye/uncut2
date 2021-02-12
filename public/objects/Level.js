@@ -8,9 +8,9 @@ export default class Level {
         return this.activeCamera;
     }
 
-    constructor() {
+    constructor(opts = {}) {
         this.attributes = {
-            gravity: 0.981
+            gravity: opts.gravity == null ? 0.981 : opts.gravity,
         }
 
         this.tick = 0;

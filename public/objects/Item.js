@@ -18,8 +18,8 @@ export default class Item extends Entity {
 
     onCollect(player) {
         player.height = 90;
-        player.width += 20;
-        player.position.x -= 10;
+        player.width += 40;
+        player.position.x -= 20;
         player.mass = 2;
     }
 

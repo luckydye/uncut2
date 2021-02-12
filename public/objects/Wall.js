@@ -15,10 +15,11 @@ export default class Wall extends Entity {
         this.static = true;
     }
 
-    getBoundingBox() {
+    getBounds() {
         const w = this.points[1].x - this.points[0].x;
         const h = this.points[2].y - this.points[1].y;
         return {
+            type: 'box',
             left: this.position.x,
             right: this.position.x + w,
             bottom: this.position.y - h,

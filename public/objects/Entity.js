@@ -29,10 +29,11 @@ export default class Entity extends GameObject {
         this.height = 80;
     }
 
-    getBoundingBox() {
+    getBounds() {
         const w = this.width;
         const h = this.height;
         return {
+            type: 'box',
             top: this.position.y + h,
             right: this.position.x + w,
             bottom: this.position.y,
@@ -56,10 +57,10 @@ export default class Entity extends GameObject {
         
         // collide X
         if(!this.static) {
-            const r1 = this.getBoundingBox();
+            const r1 = this.getBounds();
 
             for(let obj2 of colliders) {
-                const r2 = obj2.getBoundingBox();
+                const r2 = obj2.getBounds();
 
                 if(r1.top > r2.bottom && r1.bottom < r2.top) {
                     if(r1.left < r2.left && r1.right > r2.left) {
@@ -99,10 +100,10 @@ export default class Entity extends GameObject {
 
         // collide Y
         if(!this.static) {
-            const r1 = this.getBoundingBox();
+            const r1 = this.getBounds();
 
             for(let obj2 of colliders) {
-                const r2 = obj2.getBoundingBox();
+                const r2 = obj2.getBounds();
 
                 if (r1.right > r2.left && r1.left < r2.right) {
                     if(r1.top > r2.top && r1.bottom < r2.top) {
@@ -151,7 +152,7 @@ export default class Entity extends GameObject {
     }
 
     draw(renderer) {
-        const bounds = this.getBoundingBox();
+        const bounds = this.getBounds();
         renderer.drawBox(
             bounds.left,
             bounds.bottom,

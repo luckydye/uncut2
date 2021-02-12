@@ -6,6 +6,7 @@ export default class Item extends Entity {
     width = 40;
     height = 40;
     static = false;
+    collider = false;
 
     onUpdate() {
         

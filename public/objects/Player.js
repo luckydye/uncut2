@@ -3,11 +3,14 @@ import Vec from "../Vec.js";
 import Entity from "./Entity.js";
 import Item from "./Item.js";
 
-let jumpTimer;
-
 export default class Player extends Entity {
 
     // static = true;
+
+    constructor() {
+        super(...arguments);
+        window.player = this;
+    }
 
     onUpdate() {
         if(Input.checkKey('a')) {
@@ -16,10 +19,11 @@ export default class Player extends Entity {
         if(Input.checkKey('d')) {
             this.acceleration.x = 1.5;
         }
-        if(Input.checkKey(' ') && !this.airborn) {
-            this.acceleration.y =+ 13;
-            this.airborn = true;
-            clearTimeout(jumpTimer);
+        if(Input.checkKey(' ') && this.colliding.bottom && !this.jumped) {
+            this.acceleration.y =+ 18;
+            this.jumped = true;
+        } else if(!Input.checkKey(' ')) {
+            this.jumped = false;
         }
     }
 
@@ -39,7 +43,7 @@ export default class Player extends Entity {
             "white"
         );
 
-        // super.draw(renderer);
+        super.draw(renderer);
     }
 
 }

@@ -29,15 +29,24 @@ function createWall(x = 0, y = 0) {
     return wall;
 }
 
+function createLongWall(x = 0, y = 0) {
+    const wall = new Wall([
+        new Vec(0, 0),
+        new Vec(500 * 3, 0),
+        new Vec(500 * 3, 40),
+        new Vec(0, 40),
+    ]);
+    wall.position.x = x;
+    wall.position.y = y;
+    game.level.add(wall);
+    return wall;
+}
+
 createWall(0, 100);
 createWall(500, 250);
 createWall(1000, 0);
 
-createWall(-500, -100);
-createWall(0, -100);
-createWall(500, -100);
-createWall(1000, -100);
-createWall(1500, -100);
+createLongWall(-500, -100);
 
 game.level.camera.setTarget(player);
 

@@ -18,6 +18,12 @@ export default class Entity extends GameObject {
         this.acceleration = new Vec();
         this.static = optns.static || false;
         this.collider = true;
+        this.colliding = {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+        }
 
         this.width = 40;
         this.height = 80;
@@ -27,17 +33,21 @@ export default class Entity extends GameObject {
         const w = this.width;
         const h = this.height;
         return {
-            left: this.position.x,
             top: this.position.y + h,
             right: this.position.x + w,
             bottom: this.position.y,
+            left: this.position.x,
         }
     }
 
     update(delta, level, tick) {
         const colliders = level.objects.filter(obj => {
-            return obj.collider && obj !== this;
+            return obj !== this;
         });
+        this.colliding.top = 0;
+        this.colliding.bottom = 0;
+        this.colliding.left = 0;
+        this.colliding.right = 0;
 
         const collidingObjects = new Set();
 
@@ -54,16 +64,22 @@ export default class Entity extends GameObject {
                 if(r1.top > r2.bottom && r1.bottom < r2.top) {
                     if(r1.left < r2.left && r1.right > r2.left) {
                         // right side colliding
-                        const diff = r1.right - r2.left;
-                        this.position.x -= diff;
-                        this.velocity.x = 0;
+                        if(obj2.collider) {
+                            const diff = r1.right - r2.left;
+                            this.position.x -= diff + 1;
+                            this.velocity.x = 0;
+                        }
+                        this.colliding.right = 1;
                         collidingObjects.add(obj2);
                     } 
                     if(r1.right > r2.right && r2.right > r1.left) {
                         // left side colliding
-                        const diff = r1.left - r2.right;
-                        this.position.x -= diff;
-                        this.velocity.x = 0;
+                        if(obj2.collider) {
+                            const diff = r1.left - r2.right;
+                            this.position.x -= diff - 1;
+                            this.velocity.x = 0;
+                        }
+                        this.colliding.left = 1;
                         collidingObjects.add(obj2);
                     }
                 }
@@ -91,18 +107,22 @@ export default class Entity extends GameObject {
                 if (r1.right > r2.left && r1.left < r2.right) {
                     if(r1.top > r2.top && r1.bottom < r2.top) {
                         // bottom side colliding
-                        const diff = r1.bottom - r2.top;
-                        this.position.y -= diff;
-                        this.velocity.y = 0;
+                        if(obj2.collider) {
+                            const diff = r1.bottom - r2.top;
+                            this.position.y -= diff;
+                            this.velocity.y = 0;
+                        }
+                        this.colliding.bottom = 1;
                         collidingObjects.add(obj2);
-                        // airborn
-                        this.airborn = false;
                     } 
                     if(r1.bottom < r2.bottom && r1.top > r2.bottom) {
                         // top side colliding
-                        const diff = r1.top - r2.bottom;
-                        this.position.y -= diff;
-                        this.velocity.y = 0;
+                        if(obj2.collider) {
+                            const diff = r1.top - r2.bottom;
+                            this.position.y -= diff;
+                            this.velocity.y = 0;
+                        }
+                        this.colliding.top = 1;
                         collidingObjects.add(obj2);
                     }
                 }

@@ -36,9 +36,9 @@ export default class Wall extends Entity {
         }
 
         const points = this.points.map(p => transformPoint(p));
-        renderer.drawLine(points, "white");
+        renderer.drawLine(points, "#eee");
         
-        super.draw(renderer);
+        // super.draw(renderer);
     }    
 
 }

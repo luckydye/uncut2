@@ -38,7 +38,7 @@ export default class Renderer {
 
     drawSprite(x, y, w, h, color = 0xffffff) {
         const ctxt = this.context;
-        ctxt.strokeStyle = color;
+        ctxt.fillStyle = color;
         ctxt.fillRect(x, y, w, h);
     }
 
@@ -56,8 +56,9 @@ export default class Renderer {
             ctxt.lineTo(point[0], point[1]);
         }
         ctxt.closePath();
+        ctxt.strokeStyle = color;
         ctxt.fillStyle = color;
-        ctxt.fill();
+        ctxt.stroke();
     }
 
 }

@@ -25,6 +25,7 @@ export default class Entity extends GameObject {
             left: 0,
         }
 
+        this.mass = 1;
         this.width = 40;
         this.height = 80;
     }
@@ -139,7 +140,7 @@ export default class Entity extends GameObject {
         // y
         // air friction
         if(!this.static) {
-            this.velocity.y += this.acceleration.y - level.attributes.gravity;
+            this.velocity.y += this.acceleration.y - (level.attributes.gravity * this.mass);
         } else {
             this.velocity.y += this.acceleration.y;
         }

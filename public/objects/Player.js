@@ -7,6 +7,7 @@ import Item from "./Item.js";
 export default class Player extends Entity {
 
     // static = true;
+    mass = 1;
 
     constructor() {
         super(...arguments);

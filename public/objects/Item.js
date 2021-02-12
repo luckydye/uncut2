@@ -3,8 +3,8 @@ import Entity from "./Entity.js";
 
 export default class Item extends Entity {
 
-    width = 40;
-    height = 40;
+    width = 30;
+    height = 30;
     static = false;
     collider = false;
 
@@ -18,6 +18,9 @@ export default class Item extends Entity {
 
     onCollect(player) {
         player.height = 90;
+        player.width += 20;
+        player.position.x -= 10;
+        player.mass = 2;
     }
 
     draw(renderer) {

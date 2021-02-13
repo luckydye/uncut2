@@ -68,6 +68,7 @@ export default class Player extends Entity {
     }
 
     jump() {
+        this.jumped = true;
         if(this.colliding.bottom) {
             this.acceleration.y = 8;
         } else if((this.colliding.left || this.colliding.right) && !this.colliding.bottom) {
@@ -81,6 +82,9 @@ export default class Player extends Entity {
             level.remove(obj);
             obj.onCollect(this);
             console.log('Item collected');
+        }
+        if(this.colliding.bottom) {
+            this.jumped = false;
         }
     }
 

@@ -72,6 +72,9 @@ export default class NetworkManager extends GameObject {
             const player = this.players.get(connection.peer);
             // TODO:
             player.force[0] = data.input[2];
+            if(data.input[1]) {
+                player.jump();
+            }
         });
     }
 
@@ -88,7 +91,7 @@ export default class NetworkManager extends GameObject {
                 client.sendInput({
                     input: [
                         0,
-                        0,
+                        player.jumped,
                         playerInput[0],
                         playerInput[0] * -1,
                     ],

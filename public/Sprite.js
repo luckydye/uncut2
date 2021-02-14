@@ -2,7 +2,7 @@ export default class Sprite {
 
     getTexture(time) {
         // tiled sprites
-        const fps = 6;
+        const fps = this.fps;
         const index = Math.floor(((time / 100) * fps) % this._tileCount);
         this.setTile(index, 0);
         return this.canvas;
@@ -25,13 +25,16 @@ export default class Sprite {
     update() {
         if(this.loaded) {
             this.context.clearRect(0, 0, this._width, this._height);
+            this.context.save();
+            this.context.scale(1, -1);
             this.context.drawImage(
                 this.image, 
                 this.uv[0] + this._uvOffset[0], this.uv[1] + this._uvOffset[1], 
                 this._width, this._height,
-                0, 0, 
+                0, -this._height, 
                 this._width, this._height
             );
+            this.context.restore();
         } else if(this.error) {
             this.context.fillStyle = "rgb(255, 0, 255)";
             this.context.fillRect(0, 0, this._width, this._height);
@@ -41,7 +44,8 @@ export default class Sprite {
         }
     }
 
-    constructor(imgPath, w, h, tiles = 1) {
+    constructor(imgPath, w, h, tiles = 1, fps = 12) {
+        this.fps = fps;
         this._width = w;
         this._height = h;
         this.uv = [0, 0];

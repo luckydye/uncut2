@@ -31,13 +31,7 @@ export default class Entity extends GameObject {
     }
 
     onCreate() {
-        if(this.textureImage) {
-            const iamge = new Image();
-            iamge.onload = () => {
-                this.texture = iamge;
-            }
-            iamge.src = this.textureImage;
-        }
+        
     }
 
     get direction() {

@@ -25,6 +25,7 @@ export default class Game {
     }
     
     update(delta) {
+        this.renderer.update(delta);
         this.level.update(delta);
     }
 

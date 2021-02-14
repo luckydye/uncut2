@@ -1,3 +1,4 @@
+import Sprite from "../Sprite.js";
 import Vec from "../Vec.js";
 import Entity from "./Entity.js";
 
@@ -7,7 +8,7 @@ export default class Item extends Entity {
     height = 40;
     static = false;
     collider = false;
-    textureImage = "../assets/textures/item_1.png";
+    texture = new Sprite("../assets/textures/item_1.png", 256, 256, 3);
 
     onUpdate() {
         
@@ -26,16 +27,12 @@ export default class Item extends Entity {
     }
 
     draw(renderer) {
-        let color = "hsl(0deg, 0%, 65%)";
-        if(this.texture) {
-            color = this.texture;
-        }
         renderer.drawSprite(
             this.position.x,
             this.position.y,
             this.width,
             this.height,
-            color
+            this.texture
         );
 
         // super.draw(renderer);

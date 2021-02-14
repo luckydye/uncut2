@@ -1,4 +1,5 @@
 import { Action } from "../input/Actions.js";
+import Sprite from "../Sprite.js";
 import Entity from "./Entity.js";
 import Item from "./Item.js";
 
@@ -6,7 +7,7 @@ export default class Player extends Entity {
 
     // static = true;
     mass = 1;
-    textureImage = "../assets/textures/cat_ear.png";
+    texture = new Sprite("../assets/textures/cat_ear.png", 256, 256);
     force = [0, 0];
 
     constructor() {

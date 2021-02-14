@@ -1,6 +1,10 @@
+import Sprite from "./Sprite.js";
+
 export default class Renderer {
 
     constructor() {
+        this.tick = 0;
+
         this.canvas = document.createElement('canvas');
         this.context = this.canvas.getContext("2d");
 
@@ -31,6 +35,10 @@ export default class Renderer {
         );
     }
 
+    update(delta) {
+        this.tick += delta;
+    }
+
     draw(camera) {
         camera.width = this.canvas.width;
         camera.height = this.canvas.height;
@@ -38,7 +46,9 @@ export default class Renderer {
 
     drawSprite(x, y, w, h, color = 0xffffff) {
         const ctxt = this.context;
-        if(typeof color == "string") {
+        if(color instanceof Sprite) {
+            ctxt.drawImage(color.getTexture(this.tick), 0, 0, color.width, color.height, x, y, w, h);
+        } else if(typeof color == "string") {
             ctxt.fillStyle = color;
             ctxt.fillRect(x, y, w, h);
         } else {

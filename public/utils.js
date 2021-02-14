@@ -19,7 +19,7 @@ window.onload = () => {
 	const search = parseSearch(location.search);
 	const connId = search.connect;
 
-	console.log(connId);
+	console.log('autoconnect:', connId);
 }
 
 function parseSearch(str) {

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <clipPath id="clip-test">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="test" clip-path="url(#clip-test)">
+    <g id="Rectangle_1" data-name="Rectangle 1" transform="translate(0 251)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="36" height="273" stroke="none"/>
+      <rect x="0.5" y="0.5" width="35" height="272" fill="none"/>
+    </g>
+    <g id="Rectangle_2" data-name="Rectangle 2" transform="translate(1376.247 524.232) rotate(90)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="20" height="1375.995" stroke="none"/>
+      <rect x="0.5" y="0.5" width="19" height="1374.995" fill="none"/>
+    </g>
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(652 405) rotate(90)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="20" height="273" stroke="none"/>
+      <rect x="0.5" y="0.5" width="19" height="272" fill="none"/>
+    </g>
+    <g id="Rectangle_4" data-name="Rectangle 4" transform="translate(999 340) rotate(90)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="20" height="273" stroke="none"/>
+      <rect x="0.5" y="0.5" width="19" height="272" fill="none"/>
+    </g>
+    <g id="Rectangle_5" data-name="Rectangle 5" transform="translate(1339 282) rotate(90)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="20" height="273" stroke="none"/>
+      <rect x="0.5" y="0.5" width="19" height="272" fill="none"/>
+    </g>
+  </g>
+</svg>

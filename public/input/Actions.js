@@ -68,7 +68,13 @@ export class Action {
         });
 
         if (shortcut) {
-            this.mapShortcut(name, shortcut);
+            if(shortcut instanceof Array) {
+                for(let sh of shortcut) {
+                    this.mapShortcut(name, sh);
+                }
+            } else {
+                this.mapShortcut(name, shortcut);
+            }
         }
 
         Action.actions.set(name, action);
@@ -589,8 +595,10 @@ export class Action {
     }
 
     update(state) {
-        this.state = state;
-        this.execute();
+        if(this.state !== state) {
+            this.state = state;
+            this.execute([state]);
+        }
     }
 
     press() {

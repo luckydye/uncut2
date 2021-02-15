@@ -5,7 +5,7 @@ import Item from "./Item.js";
 
 export default class Player extends Entity {
 
-    // static = true;
+    static = false;
     mass = 1;
     texture = new Sprite("../assets/textures/cat_ear.png", 256, 256);
     force = [0, 0];
@@ -15,7 +15,7 @@ export default class Player extends Entity {
 
         Action.register({
             name: 'forward',
-            shortcut: 'd',
+            shortcut: ['d'],
             hold: true,
             onAction: (args, event, action) => {
                 if(action.state) {
@@ -27,7 +27,7 @@ export default class Player extends Entity {
         });
         Action.register({
             name: 'backward',
-            shortcut: 'a',
+            shortcut: ['a'],
             hold: true,
             onAction: (args, event, action) => {
                 if(action.state) {
@@ -39,7 +39,7 @@ export default class Player extends Entity {
         });
         Action.register({
             name: 'jump',
-            shortcut: 'space',
+            shortcut: ['space'],
             onAction: (args, event, action) => {
                 this.jump();
             }
@@ -79,7 +79,7 @@ export default class Player extends Entity {
     }
 
     onCollision(obj, level) {
-        if(obj instanceof Item) {
+        if(obj instanceof Item && !obj.destoryed) {
             level.remove(obj);
             obj.onCollect(this);
             console.log('Item collected');

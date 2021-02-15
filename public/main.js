@@ -6,10 +6,15 @@ import Player from "./objects/Player.js";
 import Wall from "./objects/Wall.js";
 import Vec from "./Vec.js";
 import Heart from "./objects/items/Heart.js";
+import Map from "./Map.js";
+
 
 const lvl = new Level({
     gravity: 0.981
 });
+
+Map.loadMapFile('../assets/maps/test.svg', lvl);
+
 const game = new Game(lvl);
 
 const player = new Player({
@@ -31,24 +36,6 @@ networkManager.setPlayer(player);
 game.level.add(item2);
 game.level.add(item);
 game.level.add(networkManager);
-
-function createWall(x = 0, y = 0, w = 500) {
-    const wall = new Wall([
-        new Vec(0, 0),
-        new Vec(w, 0),
-        new Vec(w, 40),
-        new Vec(0, 40),
-    ]);
-    wall.position.x = x;
-    wall.position.y = y;
-    game.level.add(wall);
-    return wall;
-}
-
-createWall(0, 100, 500);
-createWall(500, 250, 500);
-createWall(1000, 0, 500);
-createWall(-500, -100, 500 * 3);
 
 game.level.add(player);
 game.level.camera.setTarget(player);

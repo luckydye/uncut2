@@ -15,6 +15,22 @@ export default class Wall extends Entity {
         this.static = true;
     }
 
+    get width() {
+        const w = this.points[1].x - this.points[0].x;
+        return w;
+    }
+
+    get height() {
+        const h = this.points[2].y - this.points[1].y;
+        return h;
+    }
+
+    set width(v) {
+    }
+
+    set height(v) {
+    }
+
     getBounds() {
         const w = this.points[1].x - this.points[0].x;
         const h = this.points[2].y - this.points[1].y;
@@ -39,7 +55,7 @@ export default class Wall extends Entity {
         const points = this.points.map(p => transformPoint(p));
         renderer.drawLine(points, "#eee");
         
-        // super.draw(renderer);
+        super.draw(renderer);
     }    
 
 }
